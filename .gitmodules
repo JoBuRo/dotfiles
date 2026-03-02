@@ -1,6 +1,18 @@
-[submodule ".config/tmux/plugins/tmux-sensible"]
+[submodule "tmux-sensible"]
 	path = .config/tmux/plugins/tmux-sensible
 	url = https://git::@github.com/tmux-plugins/tmux-sensible
 [submodule ".oh-my-zsh"]
 	path = .oh-my-zsh
 	url = ssh://git@github.com/ohmyzsh/ohmyzsh.git
+[submodule "tmux"]
+  path = .config/tmux/plugins/tmux
+  url = https://git::@github.com/catppuccin/tmux
+[submodule "vim-tmux-navigator"]
+  path = .config/tmux/plugins/vim-tmux-navigator
+  url = https://git::@github.com/christoomey/vim-tmux-navigator
+[submodule "tmux-yank"]
+  path = .config/tmux/plugins/tmux-yank
+  url = https://git::@github.com/tmux-plugins/tmux-yank
+[submodule "tpm"]
+  path = .config/tmux/plugins/tpm
+  url = https://git::@github.com/tmux-plugins/tpm
