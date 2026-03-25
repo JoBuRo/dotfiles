@@ -7,4 +7,14 @@ return {
       disable_when_zoomed = true, -- defaults to false
     })
   end,
+
+  -- lazy = false,
+
+  keys = {
+    { "<C-h>", "<CMD>NvimTmuxNavigateLeft<CR>", desc = "Navigate Left" },
+    { "<C-j>", "<CMD>NvimTmuxNavigateDown<CR>", desc = "Navigate Down" },
+    { "<C-l>", "<CMD>NvimTmuxNavigateRight<CR>", desc = "Navigate Right" },
+    { "<C-\\>", "<CMD>NvimTmuxNavigateLastActive<CR>", desc = "Move to last Active view" },
+    { "<C-Space>", "<CMD>NvimTmuxNavigateNext<CR>", desc = "Move to next view" },
+  },
 }
