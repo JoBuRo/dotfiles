@@ -22,3 +22,6 @@
 [submodule ".config/tmux/plugins/tmux-which-key"]
 	path = .config/tmux/plugins/tmux-which-key
 	url = https://git::@github.com/alexwforsythe/tmux-which-key
+[submodule ".agents"]
+	path = .agents
+	url = git@github.com:JoBuRo/codex-committorum.git
