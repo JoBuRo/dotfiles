@@ -1,3 +1,5 @@
+{{- $profileName := get . "profile" | default "default" -}}
+{{- $profile := index .profiles $profileName -}}
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -70,7 +72,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git archlinux dotenv docker sudo tmux python systemd history zoxide)
+plugins=({{ join " " $profile.shell.plugins }})
 
 source $ZSH/oh-my-zsh.sh
 
@@ -78,8 +80,10 @@ source $ZSH/oh-my-zsh.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-# Add use bin directory to path
-export PATH="$PATH:$HOME/bin"
+# Add profile-specific user bin directories to path
+{{- range $profile.shell.pathAdd }}
+export PATH="$PATH:{{ . }}"
+{{- end }}
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
