@@ -8,6 +8,9 @@ type = "git-repo"
 url = "https://github.com/ohmyzsh/ohmyzsh.git"
 refreshPeriod = "168h"
 
+{{- $profileName := get . "profile" | default "default" -}}
+{{- $profile := index .profiles $profileName -}}
+{{- if $profile.features.tmux }}
 [".config/tmux/plugins/tmux-sensible"]
 type = "git-repo"
 url = "https://github.com/tmux-plugins/tmux-sensible.git"
@@ -37,3 +40,4 @@ refreshPeriod = "168h"
 type = "git-repo"
 url = "https://github.com/alexwforsythe/tmux-which-key.git"
 refreshPeriod = "168h"
+{{- end }}

@@ -1,0 +1,6 @@
+{{- $profileName := get . "profile" | default "default" -}}
+{{- $profile := index .profiles $profileName -}}
+{{- if not $profile.features.tmux }}
+.config/tmux
+.config/tmux/**
+{{- end }}
