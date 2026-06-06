@@ -1,6 +1,6 @@
 [".agents"]
 type = "git-repo"
-url = "git@github.com:JoBuRo/codex-committorum.git"
+url = "https://github.com/JoBuRo/codex-committorum.git"
 refreshPeriod = "168h"
 
 [".oh-my-zsh"]
