@@ -1,0 +1,20 @@
+[profiles.default]
+[profiles.default.shell]
+plugins = ["git", "archlinux", "dotenv", "docker", "sudo", "tmux", "python", "systemd", "history", "zoxide"]
+pathAdd = []
+
+[profiles.raspbian_server]
+architecture = "armv7l"
+os = "Raspbian GNU/Linux 13 (trixie)"
+
+[profiles.raspbian_server.shell]
+plugins = ["git", "dotenv", "sudo", "tmux", "python", "systemd", "history", "zoxide"]
+pathAdd = ["bin"]
+
+[profiles.debian_server]
+architecture = "x86-64"
+os = "Debian GNU/Linux 13 (trixie)"
+
+[profiles.debian_server.shell]
+plugins = ["git", "dotenv", "docker", "sudo", "tmux", "python", "systemd", "history", "zoxide"]
+pathAdd = ["bin"]

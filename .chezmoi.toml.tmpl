@@ -1,0 +1,9 @@
+{{- $profile := "default" -}}
+{{- if eq .chezmoi.osRelease.id "raspbian" -}}
+{{- $profile = "raspbian_server" -}}
+{{- else if eq .chezmoi.osRelease.id "debian" -}}
+{{- $profile = "debian_server" -}}
+{{- end -}}
+
+[data]
+profile = {{ $profile | quote }}
