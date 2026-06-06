@@ -1,6 +1,17 @@
 [profiles.default]
 [profiles.default.shell]
-plugins = ["git", "archlinux", "dotenv", "docker", "sudo", "tmux", "python", "systemd", "history", "zoxide"]
+plugins = [
+  "git",
+  "archlinux",
+  "dotenv",
+  "docker",
+  "sudo",
+  "tmux",
+  "python",
+  "systemd",
+  "history",
+  "zoxide",
+]
 pathAdd = []
 
 [profiles.raspbian_server]

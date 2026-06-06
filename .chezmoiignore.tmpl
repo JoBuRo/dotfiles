@@ -1,6 +1,27 @@
-{{- $profileName := get . "profile" | default "default" -}}
-{{- $profile := index .profiles $profileName -}}
-{{- if not $profile.features.tmux }}
+{{ $profileName := get . "profile" | default "default" }}
+{{ $profile := index .profiles $profileName }}
+
+{{ if not $profile.features.tmux }}
 .config/tmux
 .config/tmux/**
-{{- end }}
+{{ end }}
+
+{{ if not $profile.features.nvim }}
+.config/nvim
+.config/nvim/**
+{{ end }}
+
+{{ if not $profile.features.bottom }}
+.config/bottom
+.config/bottom/**
+{{ end }}
+
+{{ if not $profile.features.yazi }}
+.config/yazi
+.config/yazi/**
+{{ end }}
+
+{{ if not $profile.features.opencode }}
+.config/opencode
+.config/opencode/**
+{{ end }}

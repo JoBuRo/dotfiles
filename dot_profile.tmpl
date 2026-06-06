@@ -19,7 +19,7 @@ path_prepend() {
 # Keep user-local tools available before shell-specific startup files run.
 path_prepend "$HOME/.local/bin"
 {{- range $profile.shell.pathAdd }}
-path_prepend "{{ . }}"
+path_prepend "$HOME/{{ . }}"
 {{- end }}
 
 export PATH

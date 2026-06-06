@@ -1,8 +1,3 @@
-[".agents"]
-type = "git-repo"
-url = "https://github.com/JoBuRo/codex-committorum.git"
-refreshPeriod = "168h"
-
 [".oh-my-zsh"]
 type = "git-repo"
 url = "https://github.com/ohmyzsh/ohmyzsh.git"
@@ -39,5 +34,12 @@ refreshPeriod = "168h"
 [".config/tmux/plugins/tmux-which-key"]
 type = "git-repo"
 url = "https://github.com/alexwforsythe/tmux-which-key.git"
+refreshPeriod = "168h"
+{{- end }}
+
+{{- if $profile.features.agents }}
+[".agents"]
+type = "git-repo"
+url = "https://github.com/JoBuRo/codex-committorum.git"
 refreshPeriod = "168h"
 {{- end }}
