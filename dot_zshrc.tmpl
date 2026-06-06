@@ -1,5 +1,6 @@
 {{- $profileName := get . "profile" | default "default" -}}
 {{- $profile := index .profiles $profileName -}}
+{{- $features := get $profile "features" | default (dict) -}}
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -129,7 +130,7 @@ alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 
 # Yazi configuration
 # See https://yazi-rs.github.io/docs/quick-start#shell-wrapper
-{{- if $profile.features.yazi }}
+{{- if (get $features "yazi" | default false) }}
 function y() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   yazi "$@" --cwd-file="$tmp"
