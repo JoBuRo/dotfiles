@@ -80,6 +80,13 @@ source $ZSH/oh-my-zsh.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
+# Custom prompts
+{{- if eq $profileName "pi" }}
+PROMPT='%{$fg_bold[cyan]%}%n@🍓%{$reset_color%} %{$fg_bold[blue]%}%~%{$reset_color%} $(git_prompt_info)'
+{{- else if eq $profileName "asus" }}
+PROMPT='%{%F{blue}%}%n@🧰%{%f%} %{%F{cyan}%}%~%{%f%} $(git_prompt_info)'
+{{- end }}
+
 # Add profile-specific user bin directories to path
 path_prepend() {
   if [ -d "$1" ]; then
