@@ -81,6 +81,15 @@ source $ZSH/oh-my-zsh.sh
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # Add profile-specific user bin directories to path
+path_prepend() {
+  if [ -d "$1" ]; then
+    case ":$PATH:" in
+      *:"$1":*) ;;
+      *) PATH="$1:$PATH" ;;
+    esac
+  fi
+}
+
 {{- range $profile.shell.pathAdd }}
 path_prepend "$HOME/{{ . }}"
 {{- end }}
