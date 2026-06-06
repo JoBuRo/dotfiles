@@ -1,0 +1,25 @@
+{{- $profileName := get . "profile" | default "default" -}}
+{{- $profile := index .profiles $profileName -}}
+# POSIX login-shell setup.
+
+# Keep interactive bash behavior when this file is used as ~/.profile.
+if [ -n "$BASH_VERSION" ] && [ -f "$HOME/.bashrc" ]; then
+  . "$HOME/.bashrc"
+fi
+
+path_prepend() {
+  if [ -d "$1" ]; then
+    case ":$PATH:" in
+      *:"$1":*) ;;
+      *) PATH="$1:$PATH" ;;
+    esac
+  fi
+}
+
+# Keep user-local tools available before shell-specific startup files run.
+path_prepend "$HOME/.local/bin"
+{{- range $profile.shell.pathAdd }}
+path_prepend "{{ . }}"
+{{- end }}
+
+export PATH
