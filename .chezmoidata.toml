@@ -12,7 +12,7 @@ plugins = [
   "history",
   "zoxide",
 ]
-pathAdd = ["go/bin"]
+pathAdd = ["go/bin", ".cargo/bin"]
 theme = "agnoster"
 
 [profiles.raspbian_server]
