@@ -1,0 +1,59 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": [
+    "~/.agents/doctrine.md"
+  ],
+  "permission": {
+    "question": "allow",
+    "skill": {
+      "contract-first-change": "allow",
+      "tdd-workflow": "allow",
+      "refactor-triage": "allow",
+      "commit-policy": "allow"
+    }
+  },
+  "default_agent": "Explore",
+  "agent": {
+    "build": {
+      "mode": "primary",
+      "model": "openai/gpt-5.5",
+      "temperature": 0.1,
+      "prompt": "{file:./prompts/build.md}",
+      "permission": {
+        "question": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "webfetch": "ask",
+        "skill": {
+          "*": "ask",
+          "contract-first-change": "allow",
+          "tdd-workflow": "allow",
+          "refactor-triage": "allow",
+          "commit-policy": "allow"
+        }
+      },
+      "color": "accent"
+    },
+    "plan": {
+      "disable": true
+    },
+    "explore": {
+      "mode": "primary",
+      "description": "Primary conversational agent for exploring ideas, approaches, and tradeoffs",
+      "model": "openai/gpt-5.4",
+      "temperature": 0.6,
+      "prompt": "{file:./prompts/explore.md}",
+      "permission": {
+        "question": "allow",
+        "edit": "ask",
+        "bash": "ask",
+        "webfetch": "allow",
+        "skill": {
+          "contract-first-change": "allow",
+          "refactor-triage": "allow"
+        }
+      },
+      "color": "info"
+    }
+  }
+}

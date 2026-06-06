@@ -1,0 +1,52 @@
+[commit]
+  template = ~/.gitmessage
+
+[color]
+  ui = true
+
+[core]
+  editor = nvim
+  excludefiles = ~/.gitignore
+  pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
+[alias]
+  alias = config --get-regexp alias
+  ci = commit
+  cleanup = "!git branch --merged | grep -v -P '^\\*|master|develop' | xargs -P8 -n1 -r git branch -d; echo Done cleaning local branche."
+  co = checkout
+  mc = diff --name-only --diff-filter=U
+  st = status -sb .
+  co-all = submodule foreach git checkout
+  pull-all = submodule foreach git pull
+  st-all = submodule foreach git st
+
+  # Commit all staged/added files to the last commit.
+  amend = commit --amend --reuse-message=HEAD
+
+  # List all commits on the current branch that have not yet been pushed to develop.
+  ahead-develop = log origin/develop..HEAD
+
+  # Diff all commits on the current branch that have not yet been pushed to develop against the remote develop branch
+  diff-ahead-develop = diff origin/develop..HEAD
+
+  # Merge all changes that have been pushed to the develop branch onto the current branch.
+  update = pull --rebase --autostash -X theirs origin develop
+
+  # Rebase to the current state of the develop branch
+  rebase-develop = pull --rebase origin develop
+
+[push]
+	autoSetupRemote = true
