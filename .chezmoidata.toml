@@ -12,7 +12,7 @@ plugins = [
   "history",
   "zoxide",
 ]
-pathAdd = []
+pathAdd = ["go/bin"]
 
 [profiles.raspbian_server]
 architecture = "armv7l"
