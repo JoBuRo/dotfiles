@@ -1,0 +1,231 @@
+" Slim Vim configuration for minimal nodes.
+" Mirrors the day-to-day LazyVim defaults without loading plugins.
+
+if exists('g:loaded_slim_vimrc')
+  finish
+endif
+let g:loaded_slim_vimrc = 1
+
+set nocompatible
+let mapleader = ' '
+let maplocalleader = ' '
+
+" Core editing behavior: close to LazyVim's defaults, cheap in plain Vim.
+set encoding=utf-8
+set fileencoding=utf-8
+set number
+set norelativenumber
+if exists('&signcolumn')
+  set signcolumn=yes
+endif
+set cursorline
+set mouse=a
+set hidden
+set splitbelow
+set splitright
+set scrolloff=4
+set sidescrolloff=8
+set nowrap
+set linebreak
+set showmode
+set showcmd
+set laststatus=2
+set ruler
+set wildmenu
+set wildmode=longest:full,full
+set wildignore+=*/.git/*,*/node_modules/*,*/target/*,*/dist/*,*/build/*,*.pyc
+set path+=**
+set completeopt=menu,menuone,noselect
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+set smartindent
+set autoindent
+set updatetime=200
+set timeoutlen=300
+if exists('&undofile')
+  set undofile
+endif
+set history=200
+set list
+set listchars=tab:»\ ,trail:·,nbsp:␣
+
+if exists('&inccommand')
+  set inccommand=nosplit
+endif
+
+if exists('&termguicolors')
+  set termguicolors
+endif
+
+if has('clipboard')
+  if has('unnamedplus')
+    set clipboard=unnamedplus
+  else
+    set clipboard=unnamed
+  endif
+endif
+
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ --glob\ !.git
+  set grepformat=%f:%l:%c:%m
+endif
+
+if has('syntax')
+  syntax enable
+endif
+filetype plugin indent on
+
+" Plugin-free file explorer defaults, standing in for LazyVim's explorer.
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 0
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+
+" A tiny OneDark-darker inspired palette without a colorscheme plugin.
+set background=dark
+function! s:SlimHighlight(group, guifg, guibg, ctermfg, ctermbg, attrs) abort
+  let l:command = 'highlight ' . a:group
+  let l:command .= ' guifg=' . a:guifg . ' guibg=' . a:guibg
+  let l:command .= ' ctermfg=' . a:ctermfg . ' ctermbg=' . a:ctermbg
+  let l:command .= ' gui=' . a:attrs . ' cterm=' . a:attrs
+  execute l:command
+endfunction
+
+function! s:ApplySlimOneDark() abort
+  highlight clear
+  if exists('syntax_on')
+    syntax reset
+  endif
+  let g:colors_name = 'slim-onedark'
+
+  call s:SlimHighlight('Normal', '#abb2bf', '#1f2329', '249', '235', 'NONE')
+  call s:SlimHighlight('CursorLine', 'NONE', '#2c313a', 'NONE', '236', 'NONE')
+  call s:SlimHighlight('LineNr', '#5c6370', '#1f2329', '59', '235', 'NONE')
+  call s:SlimHighlight('CursorLineNr', '#e5c07b', '#2c313a', '180', '236', 'bold')
+  call s:SlimHighlight('SignColumn', '#abb2bf', '#1f2329', '249', '235', 'NONE')
+  call s:SlimHighlight('Visual', 'NONE', '#3e4451', 'NONE', '238', 'NONE')
+  call s:SlimHighlight('Search', '#1f2329', '#e5c07b', '235', '180', 'NONE')
+  call s:SlimHighlight('IncSearch', '#1f2329', '#d19a66', '235', '173', 'NONE')
+  call s:SlimHighlight('StatusLine', '#abb2bf', '#2c313a', '249', '236', 'NONE')
+  call s:SlimHighlight('StatusLineNC', '#5c6370', '#2c313a', '59', '236', 'NONE')
+  call s:SlimHighlight('VertSplit', '#3e4451', '#1f2329', '238', '235', 'NONE')
+  call s:SlimHighlight('Pmenu', '#abb2bf', '#2c313a', '249', '236', 'NONE')
+  call s:SlimHighlight('PmenuSel', '#1f2329', '#61afef', '235', '75', 'NONE')
+  call s:SlimHighlight('Comment', '#5c6370', 'NONE', '59', 'NONE', 'italic')
+  call s:SlimHighlight('Constant', '#d19a66', 'NONE', '173', 'NONE', 'NONE')
+  call s:SlimHighlight('String', '#98c379', 'NONE', '114', 'NONE', 'NONE')
+  call s:SlimHighlight('Identifier', '#e06c75', 'NONE', '168', 'NONE', 'NONE')
+  call s:SlimHighlight('Function', '#61afef', 'NONE', '75', 'NONE', 'NONE')
+  call s:SlimHighlight('Statement', '#c678dd', 'NONE', '176', 'NONE', 'NONE')
+  call s:SlimHighlight('PreProc', '#e5c07b', 'NONE', '180', 'NONE', 'NONE')
+  call s:SlimHighlight('Type', '#56b6c2', 'NONE', '73', 'NONE', 'NONE')
+  call s:SlimHighlight('Special', '#61afef', 'NONE', '75', 'NONE', 'NONE')
+  call s:SlimHighlight('Error', '#e06c75', '#1f2329', '168', '235', 'bold')
+  call s:SlimHighlight('Todo', '#1f2329', '#e5c07b', '235', '180', 'bold')
+endfunction
+call s:ApplySlimOneDark()
+
+" LazyVim-like leader shortcuts using built-in Vim commands.
+nnoremap <silent> <leader>w :write<CR>
+nnoremap <silent> <leader>q :quit<CR>
+nnoremap <silent> <leader>e :Explore<CR>
+nnoremap <silent> <leader>E :Lexplore<CR>
+nnoremap <leader>ff :find **/*
+nnoremap <leader>fb :buffers<CR>:buffer<Space>
+nnoremap <silent> <leader>xx :copen<CR>
+nnoremap <silent> <leader>xq :cclose<CR>
+nnoremap <silent> <Esc> :nohlsearch<CR><Esc>
+nnoremap Y y$
+
+function! s:GrepProject() abort
+  let l:pattern = input('Grep > ')
+  if empty(l:pattern)
+    return
+  endif
+  if executable('rg')
+    silent execute 'grep! ' . shellescape(l:pattern)
+  else
+    silent! execute 'vimgrep /' . escape(l:pattern, '/\') . '/gj **/*'
+  endif
+  botright copen
+endfunction
+nnoremap <silent> <leader>sg :call <SID>GrepProject()<CR>
+
+function! s:GrepWordUnderCursor() abort
+  let l:pattern = expand('<cword>')
+  if empty(l:pattern)
+    return
+  endif
+  if executable('rg')
+    silent execute 'grep! ' . shellescape(l:pattern)
+  else
+    silent! execute 'vimgrep /\V' . escape(l:pattern, '/\') . '/gj **/*'
+  endif
+  botright copen
+endfunction
+nnoremap <silent> <leader>/ :call <SID>GrepWordUnderCursor()<CR>
+
+" Lightweight stand-in for the Markview split-preview key in Neovim.
+function! s:ToggleMarkdownReadingMode() abort
+  if &l:wrap
+    setlocal nowrap nospell conceallevel=0
+  else
+    setlocal wrap linebreak spell conceallevel=2
+  endif
+endfunction
+nnoremap <silent> <leader>cp :call <SID>ToggleMarkdownReadingMode()<CR>
+
+" Split navigation, with tmux handoff when Vim is inside tmux.
+function! s:Tmux(command) abort
+  if exists('$TMUX') && executable('tmux')
+    silent call system('tmux ' . a:command)
+  endif
+endfunction
+
+function! s:NavigateSplit(vim_direction, tmux_direction) abort
+  let l:current_window = winnr()
+  execute 'wincmd ' . a:vim_direction
+  if winnr() == l:current_window && exists('$TMUX') && executable('tmux')
+    silent call system('tmux select-pane -' . a:tmux_direction)
+  endif
+endfunction
+
+function! s:NavigateLastSplitOrTmux() abort
+  let l:current_window = winnr()
+  wincmd p
+  if winnr() == l:current_window
+    call s:Tmux('last-pane')
+  endif
+endfunction
+
+function! s:NavigateNextSplitOrTmux() abort
+  let l:current_window = winnr()
+  wincmd w
+  if winnr() == l:current_window
+    call s:Tmux('select-pane -t :.+')
+  endif
+endfunction
+
+nnoremap <silent> <C-h> :call <SID>NavigateSplit('h', 'L')<CR>
+nnoremap <silent> <C-j> :call <SID>NavigateSplit('j', 'D')<CR>
+nnoremap <silent> <C-k> :call <SID>NavigateSplit('k', 'U')<CR>
+nnoremap <silent> <C-l> :call <SID>NavigateSplit('l', 'R')<CR>
+nnoremap <silent> <C-\> :call <SID>NavigateLastSplitOrTmux()<CR>
+nnoremap <silent> <C-Space> :call <SID>NavigateNextSplitOrTmux()<CR>
+nnoremap <silent> <Nul> :call <SID>NavigateNextSplitOrTmux()<CR>
+
+augroup slim_vim
+  autocmd!
+  autocmd FileType markdown,text,gitcommit setlocal wrap linebreak spell
+  autocmd FileType markdown setlocal conceallevel=2
+  autocmd FileType json setlocal conceallevel=0
+  autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+  autocmd FileType make setlocal noexpandtab
+augroup END

@@ -1,15 +1,20 @@
 {{ $profileName := get . "profile" | default "default" }}
 {{ $profile := index .profiles $profileName }}
 {{ $features := get $profile "features" | default (dict) }}
+{{ $isRoot := eq .chezmoi.username "root" }}
 
 {{ if not (get $features "tmux" | default false) }}
 .config/tmux
 .config/tmux/**
 {{ end }}
 
-{{ if not (get $features "nvim" | default false) }}
+{{ if or $isRoot (not (get $features "nvim" | default false)) }}
 .config/nvim
 .config/nvim/**
+{{ end }}
+
+{{ if not (or $isRoot (get $features "vim" | default false)) }}
+.vimrc
 {{ end }}
 
 {{ if not (get $features "bottom" | default false) }}
