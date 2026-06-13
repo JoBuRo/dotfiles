@@ -54,6 +54,26 @@
         }
       },
       "color": "info"
+    },
+    "grug": {
+      "mode": "primary",
+      "description": "Simplicity-first primary agent for design feedback, complexity reduction, and smallest-next-step guidance",
+      "model": "openai/gpt-5.4",
+      "temperature": 0.4,
+      "prompt": "{file:./prompts/grug.md}",
+      "permission": {
+        "question": "allow",
+        "edit": "ask",
+        "bash": "ask",
+        "webfetch": "allow",
+        "skill": {
+          "grug": "allow",
+          "contract-first-change": "allow",
+          "refactor-triage": "allow",
+          "tdd-workflow": "ask"
+        }
+      },
+      "color": "warning"
     }
   }
 }
