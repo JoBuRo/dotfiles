@@ -38,6 +38,11 @@
 .config/opencode/**
 {{ end }}
 
+{{ if not (get $features "gui" | default false) }}
+.config/kitty
+.config/kitty/**
+{{ end }}
+
 {{ if not $usesFdfind }}
 .local/bin/fd
 {{ end }}
