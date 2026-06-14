@@ -64,5 +64,11 @@
 {{ end }}
 
 {{ if not $usesFdfind }}
+.local
+.local/**
 .local/bin/fd
+executable_dot_local
+executable_dot_local/**
+private_dot_local
+private_dot_local/**
 {{ end }}

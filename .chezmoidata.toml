@@ -1,4 +1,5 @@
 [profiles.default]
+
 [profiles.default.shell]
 plugins = [
   "git",
@@ -15,18 +16,220 @@ plugins = [
 pathAdd = ["go/bin", ".cargo/bin"]
 theme = "onedark"
 
+[profiles.default.features]
+agents = true
+gui = true
+server = false
+
+[profiles.default.dependencies]
+commands = [
+  "git",
+  "zsh",
+  "nvim",
+  "tmux",
+  "btm",
+  "yazi",
+  "fc-match",
+  "docker",
+  "sudo",
+  "python3",
+  "systemctl",
+  "zoxide",
+  "wl-copy",
+  "wl-paste",
+  "rg",
+  "fd",
+  "go",
+  "cargo",
+]
+fonts = ["FiraCode Nerd Font"]
+
+[profiles.default.dependencies.byFeature.agents]
+commands = ["opencode"]
+
+[profiles.default.dependencies.byFeature.agents.packages]
+arch = ["opencode"]
+
+[profiles.default.dependencies.byFeature.gui]
+commands = ["kitty"]
+
+[profiles.default.dependencies.byFeature.gui.packages]
+arch = ["kitty"]
+
+[profiles.default.dependencies.packages]
+arch = [
+  "git",
+  "zsh",
+  "neovim",
+  "tmux",
+  "bottom",
+  "yazi",
+  "fontconfig",
+  "ttf-firacode-nerd",
+  "docker",
+  "sudo",
+  "python",
+  "systemd",
+  "zoxide",
+  "wl-clipboard",
+  "ripgrep",
+  "fd",
+  "go",
+  "rust",
+]
+
+[profiles.wsl]
+architecture = "x86-64"
+os = "WSL Linux"
+
+[profiles.wsl.shell]
+plugins = [
+  "git",
+  "dotenv",
+  "docker",
+  "sudo",
+  "python",
+  "systemd",
+  "history",
+  "zoxide",
+]
+pathAdd = ["bin", "go/bin", ".cargo/bin"]
+theme = "onedark"
+
+[profiles.wsl.features]
+agents = false
+copilot = true
+gui = false
+server = false
+
+[profiles.wsl.dependencies]
+commands = [
+  "git",
+  "zsh",
+  "nvim",
+  "tmux",
+  "btm",
+  "yazi",
+  "docker",
+  "sudo",
+  "python3",
+  "systemctl",
+  "zoxide",
+  "wl-copy",
+  "wl-paste",
+  "rg",
+  "fdfind",
+  "go",
+  "cargo",
+]
+fonts = []
+
+[profiles.wsl.dependencies.packages]
+apt = [
+  "git",
+  "zsh",
+  "neovim",
+  "tmux",
+  "bottom",
+  "yazi",
+  "docker.io",
+  "sudo",
+  "python3",
+  "systemd",
+  "zoxide",
+  "wl-clipboard",
+  "ripgrep",
+  "fd-find",
+  "golang",
+  "cargo",
+]
+
 [profiles.raspbian_server]
 architecture = "armv7l"
 os = "Raspbian GNU/Linux 13 (trixie)"
 
 [profiles.raspbian_server.shell]
-plugins = ["git", "dotenv", "sudo", "tmux", "python", "systemd", "history", "zoxide"]
-pathAdd = ["bin"]
+plugins = ["git", "dotenv", "sudo", "python", "systemd", "history", "zoxide"]
+pathAdd = ["bin", "go/bin"]
+theme = "robbyrussell"
+
+[profiles.raspbian_server.features]
+agents = false
+gui = false
+server = true
+
+[profiles.raspbian_server.dependencies]
+commands = [
+  "git",
+  "zsh",
+  "vim",
+  "docker",
+  "sudo",
+  "python3",
+  "systemctl",
+  "zoxide",
+]
+fonts = []
+
+[profiles.raspbian_server.dependencies.packages]
+apt = ["git", "zsh", "vim", "docker.io", "sudo", "python3", "systemd", "zoxide"]
 
 [profiles.debian_server]
 architecture = "x86-64"
 os = "Debian GNU/Linux 13 (trixie)"
 
 [profiles.debian_server.shell]
-plugins = ["git", "dotenv", "docker", "sudo", "tmux", "python", "systemd", "history", "zoxide"]
-pathAdd = ["bin"]
+plugins = [
+  "git",
+  "dotenv",
+  "docker",
+  "sudo",
+  "python",
+  "systemd",
+  "history",
+  "zoxide",
+]
+pathAdd = ["bin", "go/bin", ".cargo/bin"]
+theme = "onedark"
+
+[profiles.debian_server.features]
+agents = false
+gui = false
+server = true
+
+[profiles.debian_server.dependencies]
+commands = [
+  "git",
+  "zsh",
+  "vim",
+  "btm",
+  "yazi",
+  "docker",
+  "sudo",
+  "python3",
+  "systemctl",
+  "zoxide",
+  "rg",
+  "fdfind",
+  "go",
+  "cargo",
+]
+fonts = []
+
+[profiles.debian_server.dependencies.packages]
+apt = [
+  "git",
+  "zsh",
+  "vim",
+  "bottom",
+  "yazi",
+  "docker.io",
+  "sudo",
+  "python3",
+  "systemd",
+  "zoxide",
+  "ripgrep",
+  "fd-find",
+  "golang",
+  "cargo",
+]

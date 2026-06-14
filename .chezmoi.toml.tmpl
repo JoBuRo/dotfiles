@@ -1,5 +1,8 @@
 {{- $profile := "default" -}}
-{{- if eq .chezmoi.osRelease.id "raspbian" -}}
+{{- $isWSL := and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
+{{- if $isWSL -}}
+{{- $profile = "wsl" -}}
+{{- else if eq .chezmoi.osRelease.id "raspbian" -}}
 {{- $profile = "raspbian_server" -}}
 {{- else if eq .chezmoi.osRelease.id "debian" -}}
 {{- $profile = "debian_server" -}}
