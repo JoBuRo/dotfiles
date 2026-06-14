@@ -1,0 +1,67 @@
+#!/bin/sh
+set -eu
+
+{{- $profileName := get . "profile" | default "default" }}
+{{- $profile := index .profiles $profileName }}
+{{- $deps := get $profile "dependencies" | default (dict) }}
+{{- $commands := get $deps "commands" | default (list) }}
+{{- $fonts := get $deps "fonts" | default (list) }}
+{{- $packages := get $deps "packages" | default (dict) }}
+
+missing=0
+
+check_command() {
+  if ! command -v "$1" >/dev/null 2>&1; then
+    printf 'missing command: %s\n' "$1" >&2
+    missing=1
+  fi
+}
+
+check_font() {
+  if ! command -v fc-match >/dev/null 2>&1; then
+    printf 'missing font checker: fc-match is required to verify %s\n' "$1" >&2
+    missing=1
+    return
+  fi
+
+  matched=$(fc-match -f '%{family}\n' "$1" 2>/dev/null || true)
+  case "$matched" in
+    *"$1"*) ;;
+    *)
+      printf 'missing font: %s\n' "$1" >&2
+      missing=1
+      ;;
+  esac
+}
+
+{{- range $commands }}
+check_command {{ . | quote }}
+{{- end }}
+
+{{- range $fonts }}
+check_font {{ . | quote }}
+{{- end }}
+
+if [ "$missing" -ne 0 ]; then
+  printf '\nDependency check failed for chezmoi profile: %s\n' {{ $profileName | quote }} >&2
+  {{- if $packages }}
+  printf '\nInstall hints:\n' >&2
+  {{- range $manager, $names := $packages }}
+  case {{ $manager | quote }} in
+    arch)
+      printf '  sudo pacman -S --needed %s\n' {{ join " " $names | quote }} >&2
+      ;;
+    apt)
+      printf '  sudo apt install %s\n' {{ join " " $names | quote }} >&2
+      ;;
+    *)
+      printf '  %s: %s\n' {{ $manager | quote }} {{ join " " $names | quote }} >&2
+      ;;
+  esac
+  {{- end }}
+  {{- end }}
+  printf '\nInstall missing dependencies, then run chezmoi apply again.\n' >&2
+  exit 1
+fi
+
+printf 'Dependency check passed for chezmoi profile: %s\n' {{ $profileName | quote }}
