@@ -1,6 +1,12 @@
 {{ $profileName := get . "profile" | default "default" }}
 {{ $profile := index .profiles $profileName }}
 {{ $features := get $profile "features" | default (dict) }}
+{{ $deps := get $profile "dependencies" | default (dict) }}
+{{ $commands := get $deps "commands" | default (list) }}
+{{ $usesFdfind := false }}
+{{ range $commands }}
+{{ if eq . "fdfind" }}{{ $usesFdfind = true }}{{ end }}
+{{ end }}
 {{ $isRoot := eq .chezmoi.username "root" }}
 
 {{ if not (get $features "tmux" | default false) }}
@@ -30,4 +36,8 @@
 {{ if not (get $features "opencode" | default false) }}
 .config/opencode
 .config/opencode/**
+{{ end }}
+
+{{ if not $usesFdfind }}
+.local/bin/fd
 {{ end }}
