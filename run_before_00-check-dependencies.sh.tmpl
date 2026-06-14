@@ -3,10 +3,24 @@ set -eu
 
 {{- $profileName := get . "profile" | default "default" }}
 {{- $profile := index .profiles $profileName }}
+{{- $features := get $profile "features" | default (dict) }}
 {{- $deps := get $profile "dependencies" | default (dict) }}
 {{- $commands := get $deps "commands" | default (list) }}
+{{- $byFeature := get $deps "byFeature" | default (dict) }}
+{{- range $featureName, $featureDeps := $byFeature }}
+{{- if (get $features $featureName | default false) }}
+{{- $commands = concat $commands (get $featureDeps "commands" | default (list)) }}
+{{- end }}
+{{- end }}
 {{- $fonts := get $deps "fonts" | default (list) }}
 {{- $packages := get $deps "packages" | default (dict) }}
+{{- $hasPackages := false }}
+{{- if $packages }}{{ $hasPackages = true }}{{ end }}
+{{- range $featureName, $featureDeps := $byFeature }}
+{{- if (get $features $featureName | default false) }}
+{{- if (get $featureDeps "packages" | default (dict)) }}{{ $hasPackages = true }}{{ end }}
+{{- end }}
+{{- end }}
 
 missing=0
 
@@ -44,7 +58,7 @@ check_font {{ . | quote }}
 
 if [ "$missing" -ne 0 ]; then
   printf '\nDependency check failed for chezmoi profile: %s\n' {{ $profileName | quote }} >&2
-  {{- if $packages }}
+  {{- if $hasPackages }}
   printf '\nInstall hints:\n' >&2
   {{- range $manager, $names := $packages }}
   case {{ $manager | quote }} in
@@ -58,6 +72,24 @@ if [ "$missing" -ne 0 ]; then
       printf '  %s: %s\n' {{ $manager | quote }} {{ join " " $names | quote }} >&2
       ;;
   esac
+  {{- end }}
+  {{- range $featureName, $featureDeps := $byFeature }}
+  {{- if (get $features $featureName | default false) }}
+  {{- $featurePackages := get $featureDeps "packages" | default (dict) }}
+  {{- range $manager, $names := $featurePackages }}
+  case {{ $manager | quote }} in
+    arch)
+      printf '  sudo pacman -S --needed %s\n' {{ join " " $names | quote }} >&2
+      ;;
+    apt)
+      printf '  sudo apt install %s\n' {{ join " " $names | quote }} >&2
+      ;;
+    *)
+      printf '  %s: %s\n' {{ $manager | quote }} {{ join " " $names | quote }} >&2
+      ;;
+  esac
+  {{- end }}
+  {{- end }}
   {{- end }}
   {{- end }}
   printf '\nInstall missing dependencies, then run chezmoi apply again.\n' >&2

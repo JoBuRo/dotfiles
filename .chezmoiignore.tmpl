@@ -3,42 +3,62 @@
 {{ $features := get $profile "features" | default (dict) }}
 {{ $deps := get $profile "dependencies" | default (dict) }}
 {{ $commands := get $deps "commands" | default (list) }}
+{{ $byFeature := get $deps "byFeature" | default (dict) }}
+{{ range $featureName, $featureDeps := $byFeature }}
+{{ if (get $features $featureName | default false) }}
+{{ $commands = concat $commands (get $featureDeps "commands" | default (list)) }}
+{{ end }}
+{{ end }}
+{{ $usesTmux := false }}
+{{ $usesNvim := false }}
+{{ $usesVim := false }}
+{{ $usesBottom := false }}
+{{ $usesYazi := false }}
+{{ $usesOpencode := false }}
+{{ $usesKitty := false }}
 {{ $usesFdfind := false }}
 {{ range $commands }}
+{{ if eq . "tmux" }}{{ $usesTmux = true }}{{ end }}
+{{ if eq . "nvim" }}{{ $usesNvim = true }}{{ end }}
+{{ if eq . "vim" }}{{ $usesVim = true }}{{ end }}
+{{ if or (eq . "btm") (eq . "bottom") }}{{ $usesBottom = true }}{{ end }}
+{{ if eq . "yazi" }}{{ $usesYazi = true }}{{ end }}
+{{ if eq . "opencode" }}{{ $usesOpencode = true }}{{ end }}
+{{ if eq . "kitty" }}{{ $usesKitty = true }}{{ end }}
 {{ if eq . "fdfind" }}{{ $usesFdfind = true }}{{ end }}
 {{ end }}
 {{ $isRoot := eq .chezmoi.username "root" }}
 
-{{ if not (get $features "tmux" | default false) }}
+{{ if not $usesTmux }}
 .config/tmux
 .config/tmux/**
 {{ end }}
 
-{{ if or $isRoot (not (get $features "nvim" | default false)) }}
+{{ if or $isRoot (not $usesNvim) }}
 .config/nvim
 .config/nvim/**
 {{ end }}
 
-{{ if not (or $isRoot (get $features "vim" | default false)) }}
+{{ if not (or $isRoot $usesVim) }}
 .vimrc
 {{ end }}
 
-{{ if not (get $features "bottom" | default false) }}
+{{ if not $usesBottom }}
 .config/bottom
 .config/bottom/**
 {{ end }}
 
-{{ if not (get $features "yazi" | default false) }}
+{{ if not $usesYazi }}
 .config/yazi
 .config/yazi/**
 {{ end }}
 
-{{ if not (get $features "opencode" | default false) }}
+{{ if not $usesOpencode }}
 .config/opencode
 .config/opencode/**
 {{ end }}
 
-{{ if not (get $features "gui" | default false) }}
+{{ if not $usesKitty }}
 .config/kitty
 .config/kitty/**
 {{ end }}

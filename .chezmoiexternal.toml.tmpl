@@ -6,7 +6,19 @@ refreshPeriod = "168h"
 {{- $profileName := get . "profile" | default "default" -}}
 {{- $profile := index .profiles $profileName -}}
 {{- $features := get $profile "features" | default (dict) -}}
-{{- if (get $features "tmux" | default false) }}
+{{- $deps := get $profile "dependencies" | default (dict) -}}
+{{- $commands := get $deps "commands" | default (list) -}}
+{{- $byFeature := get $deps "byFeature" | default (dict) -}}
+{{- range $featureName, $featureDeps := $byFeature -}}
+{{- if (get $features $featureName | default false) -}}
+{{- $commands = concat $commands (get $featureDeps "commands" | default (list)) -}}
+{{- end -}}
+{{- end -}}
+{{- $usesTmux := false -}}
+{{- range $commands -}}
+{{- if eq . "tmux" }}{{ $usesTmux = true }}{{ end -}}
+{{- end -}}
+{{- if $usesTmux }}
 [".config/tmux/plugins/tmux-sensible"]
 type = "git-repo"
 url = "https://github.com/tmux-plugins/tmux-sensible.git"

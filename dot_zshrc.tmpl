@@ -1,6 +1,22 @@
 {{- $profileName := get . "profile" | default "default" -}}
 {{- $profile := index .profiles $profileName -}}
 {{- $features := get $profile "features" | default (dict) -}}
+{{- $deps := get $profile "dependencies" | default (dict) -}}
+{{- $commands := get $deps "commands" | default (list) -}}
+{{- $byFeature := get $deps "byFeature" | default (dict) -}}
+{{- range $featureName, $featureDeps := $byFeature -}}
+{{- if (get $features $featureName | default false) -}}
+{{- $commands = concat $commands (get $featureDeps "commands" | default (list)) -}}
+{{- end -}}
+{{- end -}}
+{{- $usesNvim := false -}}
+{{- $usesVim := false -}}
+{{- $usesYazi := false -}}
+{{- range $commands -}}
+{{- if eq . "nvim" }}{{ $usesNvim = true }}{{ end -}}
+{{- if eq . "vim" }}{{ $usesVim = true }}{{ end -}}
+{{- if eq . "yazi" }}{{ $usesYazi = true }}{{ end -}}
+{{- end -}}
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -98,10 +114,10 @@ path_prepend "$HOME/{{ . }}"
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# Preferred editor follows the profile's editor feature.
-{{- if (get $features "nvim" | default false) }}
+# Preferred editor follows the profile's editor dependency.
+{{- if $usesNvim }}
 export EDITOR='nvim'
-{{- else }}
+{{- else if $usesVim }}
 export EDITOR='vim'
 {{- end }}
 
@@ -123,7 +139,7 @@ alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 
 # Yazi configuration
 # See https://yazi-rs.github.io/docs/quick-start#shell-wrapper
-{{- if (get $features "yazi" | default false) }}
+{{- if $usesYazi }}
 function y() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   yazi "$@" --cwd-file="$tmp"
