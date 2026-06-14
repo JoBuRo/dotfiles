@@ -13,7 +13,7 @@ plugins = [
   "zoxide",
 ]
 pathAdd = ["go/bin", ".cargo/bin"]
-theme = "agnoster"
+theme = "onedark"
 
 [profiles.raspbian_server]
 architecture = "armv7l"
