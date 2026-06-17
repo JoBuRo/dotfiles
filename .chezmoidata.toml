@@ -13,7 +13,7 @@ plugins = [
   "history",
   "zoxide",
 ]
-pathAdd = ["go/bin", ".cargo/bin"]
+pathAdd = [".local/bin", "go/bin", ".cargo/bin"]
 theme = "onedark"
 
 [profiles.default.features]
@@ -99,7 +99,7 @@ plugins = [
   "history",
   "zoxide",
 ]
-pathAdd = ["bin", "go/bin", ".cargo/bin"]
+pathAdd = [".local/bin", "bin", "go/bin", ".cargo/bin"]
 theme = "onedark"
 
 [profiles.wsl.features]
@@ -162,7 +162,7 @@ os = "Raspbian GNU/Linux 13 (trixie)"
 
 [profiles.raspbian_server.shell]
 plugins = ["git", "dotenv", "sudo", "python", "systemd", "history", "zoxide"]
-pathAdd = ["bin", "go/bin"]
+pathAdd = [".local/bin", "bin", "go/bin"]
 theme = "robbyrussell"
 
 [profiles.raspbian_server.features]
@@ -214,7 +214,7 @@ plugins = [
   "history",
   "zoxide",
 ]
-pathAdd = ["bin", "go/bin", ".cargo/bin"]
+pathAdd = [".local/bin", "bin", "go/bin", ".cargo/bin"]
 theme = "onedark"
 
 [profiles.debian_server.features]
