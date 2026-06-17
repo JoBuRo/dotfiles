@@ -17,6 +17,7 @@
 {{ $usesOpencode := false }}
 {{ $usesKitty := false }}
 {{ $usesFdfind := false }}
+{{ $usesStarship := false }}
 {{ range $commands }}
 {{ if eq . "tmux" }}{{ $usesTmux = true }}{{ end }}
 {{ if eq . "nvim" }}{{ $usesNvim = true }}{{ end }}
@@ -26,6 +27,7 @@
 {{ if eq . "opencode" }}{{ $usesOpencode = true }}{{ end }}
 {{ if eq . "kitty" }}{{ $usesKitty = true }}{{ end }}
 {{ if eq . "fdfind" }}{{ $usesFdfind = true }}{{ end }}
+{{ if eq . "starship" }}{{ $usesStarship = true }}{{ end }}
 {{ end }}
 {{ $isRoot := eq .chezmoi.username "root" }}
 
@@ -61,6 +63,10 @@
 {{ if not $usesKitty }}
 .config/kitty
 .config/kitty/**
+{{ end }}
+
+{{ if not $usesStarship }}
+.config/starship.toml
 {{ end }}
 
 {{ if not $usesFdfind }}

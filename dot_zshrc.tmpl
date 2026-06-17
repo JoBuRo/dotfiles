@@ -12,10 +12,12 @@
 {{- $usesNvim := false -}}
 {{- $usesVim := false -}}
 {{- $usesYazi := false -}}
+{{- $usesStarship := false -}}
 {{- range $commands -}}
 {{- if eq . "nvim" }}{{ $usesNvim = true }}{{ end -}}
 {{- if eq . "vim" }}{{ $usesVim = true }}{{ end -}}
 {{- if eq . "yazi" }}{{ $usesYazi = true }}{{ end -}}
+{{- if eq . "starship" }}{{ $usesStarship = true }}{{ end -}}
 {{- end -}}
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
@@ -30,7 +32,11 @@ ZSH_CUSTOM="$HOME/.config/oh-my-zsh/custom"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+{{- if $usesStarship }}
+ZSH_THEME=""
+{{- else }}
 ZSH_THEME="{{ $profile.shell.theme }}"
+{{- end }}
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -150,4 +156,9 @@ function y() {
   [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
   rm -f -- "$tmp"
 }
+{{- end }}
+
+{{- if $usesStarship }}
+# Prompt
+eval "$(starship init zsh)"
 {{- end }}
