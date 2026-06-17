@@ -97,6 +97,9 @@ source $ZSH/oh-my-zsh.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
+# Machine-local shell config. Not managed by this repo.
+[ -r "$HOME/.config/zsh/local.zsh" ] && . "$HOME/.config/zsh/local.zsh"
+
 # Add profile-specific user bin directories to path
 path_prepend() {
   if [ -d "$1" ]; then
