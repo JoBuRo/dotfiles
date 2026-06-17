@@ -1,0 +1,53 @@
+# One Dark-inspired LSDeluxe colors.
+#
+# lsd's colors.yaml uses ANSI color names or 256-color indexes, not hex colors.
+# These indexes are close terminal-palette matches for the onedark.vim palette:
+#   red #e06c75 -> 168, green #98c379 -> 114, yellow #e5c07b -> 180,
+#   blue #61afef -> 75, purple #c678dd -> 176, cyan #56b6c2 -> 73,
+#   white #abb2bf -> 145, comment grey #5c6370 -> 241.
+
+user: 75
+group: 73
+
+permission:
+  read: 114
+  write: 180
+  exec: 168
+  exec-sticky: 176
+  no-access: 241
+  octal: 73
+  acl: 176
+  context: 73
+
+date:
+  hour-old: 114
+  day-old: 180
+  older: 241
+
+size:
+  none: 241
+  small: 145
+  medium: 180
+  large: 173
+
+inode:
+  valid: 176
+  invalid: 241
+
+links:
+  valid: 75
+  invalid: 241
+
+tree-edge: 241
+
+git-status:
+  default: 241
+  unmodified: 241
+  ignored: 241
+  new-in-index: 114
+  new-in-workdir: 114
+  typechange: 180
+  deleted: 168
+  renamed: 75
+  modified: 180
+  conflicted: 168

@@ -36,6 +36,7 @@ commands = [
   "systemctl",
   "zoxide",
   "starship",
+  "lsd",
   "wl-copy",
   "wl-paste",
   "rg",
@@ -73,6 +74,7 @@ arch = [
   "systemd",
   "zoxide",
   "starship",
+  "lsd",
   "wl-clipboard",
   "ripgrep",
   "fd",
@@ -118,6 +120,7 @@ commands = [
   "systemctl",
   "zoxide",
   "starship",
+  "lsd",
   "wl-copy",
   "wl-paste",
   "rg",
@@ -141,6 +144,7 @@ apt = [
   "systemd",
   "zoxide",
   "starship",
+  "lsd",
   "wl-clipboard",
   "ripgrep",
   "fd-find",
@@ -172,11 +176,22 @@ commands = [
   "python3",
   "systemctl",
   "zoxide",
+  "lsd",
 ]
 fonts = []
 
 [profiles.raspbian_server.dependencies.packages]
-apt = ["git", "zsh", "vim", "docker.io", "sudo", "python3", "systemd", "zoxide"]
+apt = [
+  "git",
+  "zsh",
+  "vim",
+  "docker.io",
+  "sudo",
+  "python3",
+  "systemd",
+  "zoxide",
+  "lsd",
+]
 
 [profiles.debian_server]
 architecture = "x86-64"
@@ -213,6 +228,7 @@ commands = [
   "python3",
   "systemctl",
   "zoxide",
+  "lsd",
   "rg",
   "fdfind",
   "go",
@@ -232,6 +248,7 @@ apt = [
   "python3",
   "systemd",
   "zoxide",
+  "lsd",
   "ripgrep",
   "fd-find",
   "golang",

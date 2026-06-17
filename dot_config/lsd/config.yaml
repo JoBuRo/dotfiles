@@ -1,0 +1,40 @@
+# LSDeluxe configuration.
+# See: https://github.com/lsd-rs/lsd#config-file-content
+classic: false
+
+blocks:
+  - permission
+  - user
+  - group
+  - size
+  - date
+  - git
+  - name
+
+color:
+  when: auto
+  theme: custom
+
+date: relative
+dereference: false
+display: almost-all
+
+icons:
+  when: auto
+  theme: fancy
+  separator: " "
+
+indicators: true
+layout: grid
+literal: false
+no-symlink: false
+permission: rwx
+size: short
+sorting:
+  column: name
+  reverse: false
+  dir-grouping: first
+symlink-arrow: ⇒
+total-size: false
+hyperlink: auto
+header: false
