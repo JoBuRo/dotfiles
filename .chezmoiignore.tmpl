@@ -19,6 +19,8 @@
 {{ $usesFdfind := false }}
 {{ $usesStarship := false }}
 {{ $usesLsd := false }}
+{{ $usesBat := false }}
+{{ $usesBatcat := false }}
 {{ range $commands }}
 {{ if eq . "tmux" }}{{ $usesTmux = true }}{{ end }}
 {{ if eq . "nvim" }}{{ $usesNvim = true }}{{ end }}
@@ -30,6 +32,8 @@
 {{ if eq . "fdfind" }}{{ $usesFdfind = true }}{{ end }}
 {{ if eq . "starship" }}{{ $usesStarship = true }}{{ end }}
 {{ if eq . "lsd" }}{{ $usesLsd = true }}{{ end }}
+{{ if eq . "bat" }}{{ $usesBat = true }}{{ end }}
+{{ if eq . "batcat" }}{{ $usesBatcat = true }}{{ end }}
 {{ end }}
 {{ $isRoot := eq .chezmoi.username "root" }}
 
@@ -76,12 +80,30 @@
 .config/lsd/**
 {{ end }}
 
-{{ if not $usesFdfind }}
+{{ if not (or $usesBat $usesBatcat) }}
+.config/bat
+.config/bat/**
+{{ end }}
+
+{{ if not (or $usesFdfind $usesBatcat) }}
 .local
 .local/**
 .local/bin/fd
+.local/bin/bat
 executable_dot_local
 executable_dot_local/**
+private_dot_local/bin/executable_fd
+private_dot_local/bin/executable_bat
 private_dot_local
 private_dot_local/**
+{{ end }}
+
+{{ if and (or $usesFdfind $usesBatcat) (not $usesFdfind) }}
+.local/bin/fd
+private_dot_local/bin/executable_fd
+{{ end }}
+
+{{ if and (or $usesFdfind $usesBatcat) (not $usesBatcat) }}
+.local/bin/bat
+private_dot_local/bin/executable_bat
 {{ end }}

@@ -14,12 +14,16 @@
 {{- $usesYazi := false -}}
 {{- $usesStarship := false -}}
 {{- $usesLsd := false -}}
+{{- $usesBat := false -}}
+{{- $usesBatcat := false -}}
 {{- range $commands -}}
 {{- if eq . "nvim" }}{{ $usesNvim = true }}{{ end -}}
 {{- if eq . "vim" }}{{ $usesVim = true }}{{ end -}}
 {{- if eq . "yazi" }}{{ $usesYazi = true }}{{ end -}}
 {{- if eq . "starship" }}{{ $usesStarship = true }}{{ end -}}
 {{- if eq . "lsd" }}{{ $usesLsd = true }}{{ end -}}
+{{- if eq . "bat" }}{{ $usesBat = true }}{{ end -}}
+{{- if eq . "batcat" }}{{ $usesBatcat = true }}{{ end -}}
 {{- end -}}
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
@@ -155,6 +159,14 @@ alias ll='lsd --long --git --header'
 alias la='lsd --long --all --git --header'
 alias lt='lsd --tree --depth 2'
 alias tree='lsd --tree'
+{{- end }}
+
+{{- if $usesBat }}
+# bat
+alias cat='bat'
+{{- else if $usesBatcat }}
+# bat
+alias cat='batcat'
 {{- end }}
 
 # Yazi configuration

@@ -37,6 +37,7 @@ commands = [
   "zoxide",
   "starship",
   "lsd",
+  "bat",
   "wl-copy",
   "wl-paste",
   "rg",
@@ -75,6 +76,7 @@ arch = [
   "zoxide",
   "starship",
   "lsd",
+  "bat",
   "wl-clipboard",
   "ripgrep",
   "fd",
@@ -121,6 +123,7 @@ commands = [
   "zoxide",
   "starship",
   "lsd",
+  "batcat",
   "wl-copy",
   "wl-paste",
   "rg",
@@ -145,6 +148,7 @@ apt = [
   "zoxide",
   "starship",
   "lsd",
+  "bat",
   "wl-clipboard",
   "ripgrep",
   "fd-find",
@@ -177,6 +181,7 @@ commands = [
   "systemctl",
   "zoxide",
   "lsd",
+  "batcat",
 ]
 fonts = []
 
@@ -191,6 +196,7 @@ apt = [
   "systemd",
   "zoxide",
   "lsd",
+  "bat",
 ]
 
 [profiles.debian_server]
@@ -229,6 +235,7 @@ commands = [
   "systemctl",
   "zoxide",
   "lsd",
+  "batcat",
   "rg",
   "fdfind",
   "go",
@@ -249,6 +256,7 @@ apt = [
   "systemd",
   "zoxide",
   "lsd",
+  "bat",
   "ripgrep",
   "fd-find",
   "golang",
