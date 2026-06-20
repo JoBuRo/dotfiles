@@ -1,0 +1,140 @@
+* {
+  font-family: "FiraCode Nerd Font", "Noto Sans", sans-serif;
+  font-size: 13px;
+  min-height: 0;
+}
+
+window#waybar {
+  background: rgba(17, 17, 27, 0.88);
+  color: #cdd6f4;
+  border-bottom: 1px solid rgba(137, 180, 250, 0.25);
+}
+
+tooltip {
+  background: #1e1e2e;
+  color: #cdd6f4;
+  border: 1px solid #313244;
+  border-radius: 10px;
+}
+
+/* Workspaces */
+
+#workspaces {
+  margin-left: 8px;
+  margin-right: 6px;
+}
+
+#cpu,
+#memory,
+#temperature {
+  padding: 0 10px;
+  margin: 5px 2px;
+  border-radius: 999px;
+  background: #1e1e2e;
+}
+
+#workspaces button {
+  padding: 0 8px;
+  margin: 5px 2px;
+  border-radius: 999px;
+  color: #6c7086;
+  background: transparent;
+  border: none;
+}
+
+#workspaces button:hover {
+  color: #cdd6f4;
+  background: #313244;
+}
+
+#workspaces button.active {
+  color: #89b4fa;
+  background: #313244;
+}
+
+#workspaces button.focused {
+  color: #11111b;
+  background: #89b4fa;
+}
+
+/* Center window title */
+
+#window {
+  padding: 0 14px;
+  margin: 5px 0;
+  border-radius: 999px;
+  background: #1e1e2e;
+  color: #cdd6f4;
+}
+
+window#waybar.empty #window {
+  background: transparent;
+  color: #6c7086;
+}
+
+/* Right-side pills */
+
+#pulseaudio,
+#emperature,
+#backlight,
+#tray,
+#network,
+#clock,
+#battery {
+  padding: 0 10px;
+  margin: 5px 2px;
+  border-radius: 999px;
+  background: #1e1e2e;
+  color: #cdd6f4;
+}
+
+#battery {
+  margin-right: 8px;
+}
+
+#clock {
+  color: #89b4fa;
+}
+
+#pulseaudio {
+  color: #a6e3a1;
+}
+
+#cpu {
+  color: #fab387;
+}
+
+#memory {
+  color: #cba6f7;
+}
+
+#temperature {
+  color: #f9e2af;
+}
+
+#backlight {
+  color: #f5c2e7;
+}
+
+#network {
+  color: #94e2d5;
+}
+
+#battery.charging,
+#battery.plugged {
+  color: #a6e3a1;
+}
+
+#battery.warning {
+  color: #f9e2af;
+}
+
+#battery.critical {
+  color: #f38ba8;
+}
+
+#temperature.critical,
+#network.disconnected,
+#pulseaudio.muted {
+  color: #f38ba8;
+}
