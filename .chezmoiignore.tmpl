@@ -1,6 +1,7 @@
 {{ $profileName := get . "profile" | default "default" }}
 {{ $profile := index .profiles $profileName }}
 {{ $features := get $profile "features" | default (dict) }}
+{{ $hasGui := get $features "gui" | default false }}
 {{ $deps := get $profile "dependencies" | default (dict) }}
 {{ $commands := get $deps "commands" | default (list) }}
 {{ $byFeature := get $deps "byFeature" | default (dict) }}
@@ -36,6 +37,19 @@
 {{ if eq . "batcat" }}{{ $usesBatcat = true }}{{ end }}
 {{ end }}
 {{ $isRoot := eq .chezmoi.username "root" }}
+
+{{ if not $hasGui }}
+.config/fuzzel
+.config/fuzzel/**
+.config/mako
+.config/mako/**
+.config/niri
+.config/niri/**
+.config/swaylock
+.config/swaylock/**
+.config/waybar
+.config/waybar/**
+{{ end }}
 
 {{ if not $usesTmux }}
 .config/tmux
