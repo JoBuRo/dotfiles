@@ -21,6 +21,9 @@ agents = true
 gui = true
 server = false
 
+[profiles.default.opencode]
+model = "openai/gpt-5.5"
+
 [profiles.default.dependencies]
 commands = [
   "git",
@@ -103,10 +106,16 @@ pathAdd = [".local/bin", "bin", "go/bin", ".cargo/bin"]
 theme = "onedark"
 
 [profiles.wsl.features]
-agents = false
+agents = true
 copilot = true
 gui = false
 server = false
+
+[profiles.wsl.opencode]
+model = "github-copilot/gpt-5.5"
+
+[profiles.wsl.opencode.provider.github-copilot.options]
+baseURL = "https://api.business.githubcopilot.com"
 
 [profiles.wsl.dependencies]
 commands = [
@@ -124,14 +133,17 @@ commands = [
   "starship",
   "lsd",
   "batcat",
-  "wl-copy",
-  "wl-paste",
+  "clip.exe",
+  "powershell.exe",
   "rg",
   "fdfind",
   "go",
   "cargo",
 ]
 fonts = []
+
+[profiles.wsl.dependencies.byFeature.agents]
+commands = ["opencode"]
 
 [profiles.wsl.dependencies.packages]
 apt = [
@@ -149,7 +161,6 @@ apt = [
   "starship",
   "lsd",
   "bat",
-  "wl-clipboard",
   "ripgrep",
   "fd-find",
   "golang",

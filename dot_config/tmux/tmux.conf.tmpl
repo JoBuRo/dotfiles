@@ -1,3 +1,4 @@
+{{- $profileName := get . "profile" | default "default" -}}
 set -as terminal-features ",xterm-kitty*:RGB"
 set -g allow-passthrough on
 set -ga update-environment TERM
@@ -38,15 +39,18 @@ set -g window-status-format "#[fg=#abb2bf,bg=#1f2329] #I:#W "
 set -g window-status-current-format "#[fg=#1f2329,bg=#61afef,bold] #I:#W #[fg=#61afef,bg=#1f2329,nobold]"
 set -g window-status-separator ""
 
-# y and p as in vim
+# y and p as in vim, backed by the host system clipboard.
 bind Escape copy-mode
 unbind p
-bind p paste-buffer
+{{- if eq $profileName "wsl" }}
+bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "clip.exe"
+bind-key p run "powershell.exe -NoProfile -Command Get-Clipboard | tr -d '\r' | tmux load-buffer - ; tmux paste-buffer"
+{{- else }}
+bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "wl-copy"
+bind-key p run "wl-paste -n | tmux load-buffer - ; tmux paste-buffer"
+{{- end }}
 bind-key -T copy-mode-vi v send-keys -X begin-selection
 bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
-# bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
-bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "wl-copy && wl-paste -n | wl-copy -p"
-bind-key p run "wl-paste -n | tmux load-buffer - ; tmux paste-buffer"
 
 # Do not load .profile multiple times
 set -g default-command "${SHELL}"
@@ -55,7 +59,6 @@ set -g default-command "${SHELL}"
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'christoomey/vim-tmux-navigator'
-set -g @plugin 'tmux-plugins/tmux-yank'
 set -g @plugin 'alexwforsythe/tmux-which-key'
 
 # Other examples:

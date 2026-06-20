@@ -1,5 +1,14 @@
+{{- $profileName := get . "profile" | default "default" -}}
+{{- $profile := index .profiles $profileName -}}
+{{- $opencode := get $profile "opencode" | default (dict) -}}
 {
   "$schema": "https://opencode.ai/config.json",
+  {{- with (get $opencode "model") }}
+  "model": {{ . | quote }},
+  {{- end }}
+  {{- with (get $opencode "provider") }}
+  "provider": {{ . | toJson }},
+  {{- end }}
   "instructions": [
     "~/.agents/doctrine.md"
   ],
@@ -16,7 +25,6 @@
   "agent": {
     "build": {
       "mode": "primary",
-      "model": "openai/gpt-5.5",
       "temperature": 0.1,
       "prompt": "{file:./prompts/build.md}",
       "permission": {
@@ -40,7 +48,6 @@
     "explore": {
       "mode": "primary",
       "description": "Primary conversational agent for exploring ideas, approaches, and tradeoffs",
-      "model": "openai/gpt-5.4",
       "temperature": 0.6,
       "prompt": "{file:./prompts/explore.md}",
       "permission": {
@@ -58,7 +65,6 @@
     "grug": {
       "mode": "primary",
       "description": "Simplicity-first primary agent for design feedback, complexity reduction, and smallest-next-step guidance",
-      "model": "openai/gpt-5.4",
       "temperature": 0.4,
       "prompt": "{file:./prompts/grug.md}",
       "permission": {

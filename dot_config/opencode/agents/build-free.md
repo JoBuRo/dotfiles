@@ -1,7 +1,6 @@
 ---
 description: Primary general-purpose build agent for straightforward implementation without strict contract-first framing
 mode: primary
-model: openai/gpt-5.4
 temperature: 0.3
 permission:
   question: allow

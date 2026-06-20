@@ -1,7 +1,6 @@
 ---
 description: Primary analysis agent for debugging, refactoring decisions, and architecture discussions
 mode: primary
-model: openai/gpt-5.5
 temperature: 0.2
 permission:
   question: allow
