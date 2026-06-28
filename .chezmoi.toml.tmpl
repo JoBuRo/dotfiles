@@ -1,9 +1,10 @@
 {{- $profile := "default" -}}
 {{- $isWSL := and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
+{{- $isArmDebian := and (eq .chezmoi.osRelease.id "debian") (or (eq .chezmoi.arch "arm") (eq .chezmoi.arch "arm64")) -}}
 {{- if $isWSL -}}
 {{- $profile = "wsl" -}}
-{{- else if eq .chezmoi.osRelease.id "raspbian" -}}
-{{- $profile = "pi_quarantine" -}}
+{{- else if or (eq .chezmoi.osRelease.id "raspbian") $isArmDebian -}}
+{{- $profile = "pi" -}}
 {{- else if eq .chezmoi.osRelease.id "debian" -}}
 {{- $profile = "debian_server" -}}
 {{- end -}}

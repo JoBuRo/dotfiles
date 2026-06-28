@@ -6,13 +6,13 @@
   ui = true
 
 [core]
-{{- if eq $profileName "pi_quarantine" }}
+{{- if eq $profileName "pi" }}
   editor = vim
 {{- else }}
   editor = nvim
 {{- end }}
   excludefiles = ~/.gitignore
-{{- if ne $profileName "pi_quarantine" }}
+{{- if ne $profileName "pi" }}
   pager = delta
 
 [interactive]

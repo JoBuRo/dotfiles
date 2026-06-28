@@ -210,29 +210,29 @@ apt = [
   "bat",
 ]
 
-[profiles.pi_quarantine]
+[profiles.pi]
 architecture = "armv7l"
 os = "Raspberry Pi OS"
 
-[profiles.pi_quarantine.shell]
+[profiles.pi.shell]
 plugins = []
 pathAdd = ["bin", ".local/bin"]
 theme = ""
 
-[profiles.pi_quarantine.features]
+[profiles.pi.features]
 agents = false
 gui = false
 server = false
 quarantine = true
 
-[profiles.pi_quarantine.dependencies]
+[profiles.pi.dependencies]
 commands = [
   "git",
   "vim",
 ]
 fonts = []
 
-[profiles.pi_quarantine.dependencies.packages]
+[profiles.pi.dependencies.packages]
 apt = [
   "ca-certificates",
   "git",
