@@ -215,9 +215,9 @@ architecture = "armv7l"
 os = "Raspberry Pi OS"
 
 [profiles.pi.shell]
-plugins = []
+plugins = ["git", "dotenv", "systemd", "history", "zoxide"]
 pathAdd = ["bin", ".local/bin"]
-theme = ""
+theme = "robbyrussell"
 
 [profiles.pi.features]
 agents = false
@@ -228,7 +228,12 @@ quarantine = true
 [profiles.pi.dependencies]
 commands = [
   "git",
+  "zsh",
   "vim",
+  "systemctl",
+  "zoxide",
+  "lsd",
+  "bat",
 ]
 fonts = []
 
@@ -236,7 +241,12 @@ fonts = []
 apt = [
   "ca-certificates",
   "git",
+  "zsh",
   "vim",
+  "systemd",
+  "zoxide",
+  "lsd",
+  "bat",
 ]
 
 [profiles.debian_server]
