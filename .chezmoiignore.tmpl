@@ -22,6 +22,7 @@
 {{ $usesLsd := false }}
 {{ $usesBat := false }}
 {{ $usesBatcat := false }}
+{{ $usesZsh := false }}
 {{ range $commands }}
 {{ if eq . "tmux" }}{{ $usesTmux = true }}{{ end }}
 {{ if eq . "nvim" }}{{ $usesNvim = true }}{{ end }}
@@ -35,8 +36,17 @@
 {{ if eq . "lsd" }}{{ $usesLsd = true }}{{ end }}
 {{ if eq . "bat" }}{{ $usesBat = true }}{{ end }}
 {{ if eq . "batcat" }}{{ $usesBatcat = true }}{{ end }}
+{{ if eq . "zsh" }}{{ $usesZsh = true }}{{ end }}
 {{ end }}
 {{ $isRoot := eq .chezmoi.username "root" }}
+
+{{ if not $usesZsh }}
+.zshrc
+.oh-my-zsh
+.oh-my-zsh/**
+.config/oh-my-zsh
+.config/oh-my-zsh/**
+{{ end }}
 
 {{ if not $hasGui }}
 .config/fuzzel

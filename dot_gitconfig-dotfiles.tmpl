@@ -1,3 +1,4 @@
+{{- $profileName := get . "profile" | default "default" -}}
 [commit]
   template = ~/.gitmessage
 
@@ -5,8 +6,13 @@
   ui = true
 
 [core]
+{{- if eq $profileName "pi_quarantine" }}
+  editor = vim
+{{- else }}
   editor = nvim
+{{- end }}
   excludefiles = ~/.gitignore
+{{- if ne $profileName "pi_quarantine" }}
   pager = delta
 
 [interactive]
@@ -15,6 +21,7 @@
 [delta]
     navigate = true    # use n and N to move between diff sections
     light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+{{- end }}
 
 [merge]
     conflictstyle = diff3

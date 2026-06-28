@@ -210,6 +210,35 @@ apt = [
   "bat",
 ]
 
+[profiles.pi_quarantine]
+architecture = "armv7l"
+os = "Raspberry Pi OS"
+
+[profiles.pi_quarantine.shell]
+plugins = []
+pathAdd = ["bin", ".local/bin"]
+theme = ""
+
+[profiles.pi_quarantine.features]
+agents = false
+gui = false
+server = false
+quarantine = true
+
+[profiles.pi_quarantine.dependencies]
+commands = [
+  "git",
+  "vim",
+]
+fonts = []
+
+[profiles.pi_quarantine.dependencies.packages]
+apt = [
+  "ca-certificates",
+  "git",
+  "vim",
+]
+
 [profiles.debian_server]
 architecture = "x86-64"
 os = "Debian GNU/Linux 13 (trixie)"

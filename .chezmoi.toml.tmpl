@@ -3,7 +3,7 @@
 {{- if $isWSL -}}
 {{- $profile = "wsl" -}}
 {{- else if eq .chezmoi.osRelease.id "raspbian" -}}
-{{- $profile = "raspbian_server" -}}
+{{- $profile = "pi_quarantine" -}}
 {{- else if eq .chezmoi.osRelease.id "debian" -}}
 {{- $profile = "debian_server" -}}
 {{- end -}}

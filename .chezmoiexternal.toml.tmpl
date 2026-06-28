@@ -1,8 +1,3 @@
-[".oh-my-zsh"]
-type = "git-repo"
-url = "https://github.com/ohmyzsh/ohmyzsh.git"
-refreshPeriod = "168h"
-
 {{- $profileName := get . "profile" | default "default" -}}
 {{- $profile := index .profiles $profileName -}}
 {{- $features := get $profile "features" | default (dict) -}}
@@ -15,9 +10,18 @@ refreshPeriod = "168h"
 {{- end -}}
 {{- end -}}
 {{- $usesTmux := false -}}
+{{- $usesZsh := false -}}
 {{- range $commands -}}
 {{- if eq . "tmux" }}{{ $usesTmux = true }}{{ end -}}
+{{- if eq . "zsh" }}{{ $usesZsh = true }}{{ end -}}
 {{- end -}}
+{{- if $usesZsh }}
+[".oh-my-zsh"]
+type = "git-repo"
+url = "https://github.com/ohmyzsh/ohmyzsh.git"
+refreshPeriod = "168h"
+
+{{- end }}
 {{- if $usesTmux }}
 [".config/tmux/plugins/tmux-sensible"]
 type = "git-repo"
