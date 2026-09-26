@@ -14,72 +14,49 @@
   ],
   "permission": {
     "question": "allow",
+    "edit": "deny",
+    "task": "deny",
+    "webfetch": "allow",
+    "bash": {
+      "*": "ask",
+      "git status": "allow",
+      "git status --short": "allow",
+      "pytest *": "allow",
+      "pytest": "allow",
+      "python -m pytest *": "allow",
+      "python3 -m pytest *": "allow",
+      "npm test": "allow",
+      "npm test *": "allow",
+      "npm run test": "allow",
+      "npm run test *": "allow",
+      "npm run lint": "allow",
+      "npm run lint *": "allow",
+      "cargo test": "allow",
+      "cargo test *": "allow",
+      "cargo check": "allow",
+      "cargo check *": "allow",
+      "go test *": "allow",
+      "go vet *": "allow"
+    },
     "skill": {
-      "contract-first-change": "allow",
-      "tdd-workflow": "allow",
+      "*": "ask",
+      "change-workflow": "allow",
       "refactor-triage": "allow",
-      "commit-policy": "allow"
+      "commit-policy": "allow",
+      "grug": "allow",
+      "customize-opencode": "allow"
     }
   },
-  "default_agent": "introspect",
+  "default_agent": "investigate",
   "agent": {
-    "build": {
-      "mode": "primary",
-      "temperature": 0.1,
-      "prompt": "{file:./prompts/build.md}",
-      "permission": {
-        "question": "allow",
-        "edit": "allow",
-        "bash": "allow",
-        "webfetch": "ask",
-        "skill": {
-          "*": "ask",
-          "contract-first-change": "allow",
-          "tdd-workflow": "allow",
-          "refactor-triage": "allow",
-          "commit-policy": "allow"
-        }
-      },
-      "color": "accent"
-    },
     "plan": {
       "disable": true
     },
     "explore": {
-      "mode": "primary",
-      "description": "Primary conversational agent for exploring ideas, approaches, and tradeoffs",
-      "temperature": 0.6,
-      "prompt": "{file:./prompts/explore.md}",
-      "permission": {
-        "question": "allow",
-        "edit": "ask",
-        "bash": "ask",
-        "webfetch": "allow",
-        "skill": {
-          "contract-first-change": "allow",
-          "refactor-triage": "allow"
-        }
-      },
-      "color": "info"
+      "disable": true
     },
-    "grug": {
-      "mode": "primary",
-      "description": "Simplicity-first primary agent for design feedback, complexity reduction, and smallest-next-step guidance",
-      "temperature": 0.4,
-      "prompt": "{file:./prompts/grug.md}",
-      "permission": {
-        "question": "allow",
-        "edit": "ask",
-        "bash": "ask",
-        "webfetch": "allow",
-        "skill": {
-          "grug": "allow",
-          "contract-first-change": "allow",
-          "refactor-triage": "allow",
-          "tdd-workflow": "ask"
-        }
-      },
-      "color": "warning"
+    "general": {
+      "disable": true
     }
   }
 }
